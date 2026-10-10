@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#F4F4F5" />
+    <meta name="description" content="MiKi is an AI team inside your store that spots what needs attention and follows through." />
+    <title>MiKi - AI team for physical retail stores</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="icon" href="/assets/miki-logo-7414a10a.jpg" />
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
+    <header class="site-header" id="top">
+      <div class="nav-inner">
+        <a class="brand-mark" href="#top" aria-label="MiKi home">
+          <img src="/assets/miki-logo-7414a10a.jpg" alt="MiKi Logo" />
+        </a>
+        <nav class="site-nav" aria-label="Primary navigation">
+          <a href="#ai-team">AI team</a>
+          <a href="#learns">What MiKi learns</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <section class="hero-section" aria-labelledby="hero-title">
+        <div class="hero-canvas-wrap" aria-hidden="true"><canvas id="hero-shader-canvas"></canvas></div>
+        <div class="container hero-content">
+          <div class="hero-grid">
+            <div class="hero-copy reveal">
+              <h1 id="hero-title">
+                Transform
+                <img class="inline-token" src="/assets/cctv-dae03d88.jpg" alt="" aria-hidden="true" />
+                your existing systems into
+                <img class="inline-token" src="/assets/miki-12100366.jpg" alt="" aria-hidden="true" />
+                digital co-workers.
+              </h1>
+              <p class="hero-lede">An AI team inside your store that spots what needs attention and follows through.</p>
+              <div class="hero-cta-wrap">
+                <button class="primary-button" id="early-access" type="button">Early access</button>
+              </div>
+            </div>
+
+            <div class="hero-media reveal reveal-delay-1">
+              <div class="hero-media-frame">
+                <img src="/assets/store-overview-3e01d400.jpg" alt="Store overview" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="container section-block" id="ai-team" aria-labelledby="ai-team-title">
+        <div class="section-intro reveal">
+          <h2 id="ai-team-title">Your store's AI team, led by MiKi.</h2>
+          <p>One personal MiKi for the manager, backed by Security, Operations and Customer Care agents that work in the background.</p>
+        </div>
+
+        <div class="team-grid">
+          <article class="team-card personal-card reveal">
+            <div class="team-card-media"><img src="/assets/personal-miki-assistant-fd92a454.jpg" alt="Personal MiKi Assistant" /></div>
+            <div class="team-card-copy">
+              <h3>Personal MiKi</h3>
+              <p>Your manager's single point of contact. It alerts, texts or calls when something needs you.</p>
+            </div>
+          </article>
+
+          <div class="team-stack">
+            <article class="team-card mini-card security-card reveal reveal-delay-1">
+              <img src="/assets/security-module-516689f6.jpg" alt="Security Module" />
+              <div><h3>Security</h3><p>Watches the cameras and flags unusual activity with a short clip.</p></div>
+            </article>
+            <article class="team-card mini-card operations-card reveal reveal-delay-2">
+              <img src="/assets/operations-module-0f414362.jpg" alt="Operations Module" />
+              <div><h3>Operations</h3><p>Tracks queues, shelves and tasks, and follows each one to the end.</p></div>
+            </article>
+            <article class="team-card mini-card care-card reveal reveal-delay-3">
+              <img src="/assets/customer-care-module-5a28143d.jpg" alt="Customer Care Module" />
+              <div><h3>Customer Care</h3><p>Spots customer friction and follows up on open issues.</p></div>
+            </article>
+          </div>
+        </div>
+        <p class="section-footnote">MiKi is in development. Visuals show the concept.</p>
+      </section>
+
+      <section class="container section-block learns-section" id="learns" aria-labelledby="learns-title">
+        <div class="section-intro reveal">
+          <h2 id="learns-title">Launch your store's MiKi.</h2>
+          <p>It learns your store's rhythm and keeps you in charge of every decision.</p>
+        </div>
+
+        <div class="learns-grid">
+          <div class="manager-media reveal"><img src="/assets/store-manager-overview-89c9f205.jpg" alt="Store manager overview" /></div>
+          <div class="learned-panel reveal reveal-delay-1">
+            <div class="panel-heading"><h3>What MiKi has learned</h3></div>
+            <div class="learned-rows">
+              <label class="learned-row"><span>Friday evenings: warn about queues 10 minutes earlier</span><input type="checkbox" checked /><span class="toggle" aria-hidden="true"></span></label>
+              <label class="learned-row"><span>Aisle 4: check after the 10:00 delivery</span><input type="checkbox" checked /><span class="toggle" aria-hidden="true"></span></label>
+              <label class="learned-row"><span>Morning brief: top three items only</span><input type="checkbox" checked /><span class="toggle" aria-hidden="true"></span></label>
+              <label class="learned-row"><span>Alerts: WhatsApp first, then a call</span><input type="checkbox" checked /><span class="toggle" aria-hidden="true"></span></label>
+            </div>
+            <div class="panel-actions">
+              <button id="edit-settings" type="button">Edit</button>
+              <button id="reset-settings" type="button">Reset all</button>
+            </div>
+          </div>
+        </div>
+        <div class="closing-anchor reveal"><p>Built to support your team, not watch them.</p></div>
+      </section>
+
+      <section class="container faq-section" id="faq" aria-labelledby="faq-title">
+        <div class="faq-layout">
+          <div class="faq-aside reveal">
+            <div class="faq-kicker"><svg aria-hidden="true" viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"></polygon></svg><span>FAQ</span></div>
+            <h2 id="faq-title">Frequently asked questions</h2>
+            <p class="faq-question">Still have a question?</p>
+            <p class="faq-contact"><a href="mailto:hello@miki.si">Contact us</a>. We'll be happy to help.</p>
+            <div class="social-links" aria-label="Social links">
+              <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+              <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+              <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg></a>
+              <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+              <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48"></polygon></svg></a>
+            </div>
+          </div>
+
+          <div class="faq-accordion reveal reveal-delay-1" id="faq-accordion">
+            <div class="faq-item">
+              <button class="faq-trigger" id="faq-btn-1" type="button" aria-expanded="true" aria-controls="faq-ans-1"><span>What is MiKi?</span><span class="faq-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4.5v15m7.5-7.5h-15"></path></svg></span></button>
+              <div class="faq-content is-open" id="faq-ans-1" aria-labelledby="faq-btn-1" role="region"><p>MiKi is an AI team that works inside your store. It connects to the cameras you already have, learns what normal looks like, and tells your manager what needs attention.</p></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-trigger" id="faq-btn-2" type="button" aria-expanded="false" aria-controls="faq-ans-2"><span>Do I need to buy new cameras?</span><span class="faq-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4.5v15m7.5-7.5h-15"></path></svg></span></button>
+              <div class="faq-content" id="faq-ans-2" aria-labelledby="faq-btn-2" role="region"><p>No. MiKi is designed to work with the CCTV your store already has.</p></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-trigger" id="faq-btn-3" type="button" aria-expanded="false" aria-controls="faq-ans-3"><span>How does MiKi reach my manager?</span><span class="faq-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4.5v15m7.5-7.5h-15"></path></svg></span></button>
+              <div class="faq-content" id="faq-ans-3" aria-labelledby="faq-btn-3" role="region"><p>Through channels they already use: an alert, a text, a WhatsApp message or a call. The manager always decides what happens next.</p></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-trigger" id="faq-btn-4" type="button" aria-expanded="false" aria-controls="faq-ans-4"><span>Will MiKi watch my staff or share my footage?</span><span class="faq-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4.5v15m7.5-7.5h-15"></path></svg></span></button>
+              <div class="faq-content" id="faq-ans-4" aria-labelledby="faq-btn-4" role="region"><p>MiKi is built to support your team, not watch them. It works by role and zone, not individual performance. Privacy controls such as retention limits and audit trails are part of the plan, and you stay in control of your footage.</p></div>
+            </div>
+            <div class="faq-item">
+              <button class="faq-trigger" id="faq-btn-5" type="button" aria-expanded="false" aria-controls="faq-ans-5"><span>How do I get early access?</span><span class="faq-icon"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 4.5v15m7.5-7.5h-15"></path></svg></span></button>
+              <div class="faq-content" id="faq-ans-5" aria-labelledby="faq-btn-5" role="region"><p>Join early access and we'll reach out to learn about your stores. MiKi is in development, and early partners help shape what we build first.</p></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="footer-note">MiKi is in active development. Visuals on this page are concept.</div>
+        <div class="footer-main-row">
+          <div class="footer-logo"><img src="/assets/miki-logo-7414a10a.jpg" alt="MiKi Logo" /></div>
+          <div class="footer-socials" aria-label="Footer social links">
+            <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+            <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+            <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+            <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88-.0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48"></polygon></svg></a>
+            <a href="#" aria-label="X"><svg fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg></a>
+          </div>
+          <div class="footer-links"><a href="#">Privacy</a><span>miki.si</span><span>© 2026 MiKi</span></div>
+        </div>
+      </div>
+    </footer>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
