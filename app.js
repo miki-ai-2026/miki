@@ -108,6 +108,44 @@ function setupShrinkingHeader() {
   update();
 }
 
+function setupHeroParallax() {
+  const hero = document.querySelector('.hero-section');
+  const background = document.querySelector('.hero-canvas-wrap');
+  if (!hero || !background) return;
+
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const mobileViewport = window.matchMedia('(max-width: 767px)');
+  let ticking = false;
+
+  const update = () => {
+    if (reducedMotion.matches || mobileViewport.matches) {
+      background.style.setProperty('--hero-parallax-y', '0px');
+      background.style.setProperty('--hero-parallax-scale', '1');
+      background.style.setProperty('--hero-parallax-opacity', '1');
+      ticking = false;
+      return;
+    }
+
+    const progress = Math.min(1, Math.max(0, window.scrollY / Math.max(1, hero.offsetHeight)));
+    background.style.setProperty('--hero-parallax-y', `${(window.scrollY * 0.35).toFixed(2)}px`);
+    background.style.setProperty('--hero-parallax-scale', (1 - (0.05 * progress)).toFixed(3));
+    background.style.setProperty('--hero-parallax-opacity', (1 - (0.4 * progress)).toFixed(3));
+    ticking = false;
+  };
+  const requestUpdate = () => {
+    if (!ticking) {
+      ticking = true;
+      window.requestAnimationFrame(update);
+    }
+  };
+
+  window.addEventListener('scroll', requestUpdate, { passive: true });
+  window.addEventListener('resize', requestUpdate, { passive: true });
+  reducedMotion.addEventListener?.('change', requestUpdate);
+  mobileViewport.addEventListener?.('change', requestUpdate);
+  update();
+}
+
 function setupRevealMotion() {
   const elements = document.querySelectorAll('.reveal');
   if (prefersReducedMotion || !('IntersectionObserver' in window)) {
@@ -225,6 +263,7 @@ function setupScrollRevealBlur() {
 
 setupHeroCanvas();
 setupShrinkingHeader();
+setupHeroParallax();
 setupRevealMotion();
 setupFaqSlideMotion();
 setupScrollRevealBlur();
