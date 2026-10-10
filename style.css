@@ -159,6 +159,8 @@ main { padding-top: 64px; }
 .word-bubble.reveal-delay-3 { transition-delay: 300ms; }
 .word-bubble.is-visible:hover { transform: translateY(-4px) scale(1.01); box-shadow: 0 18px 44px -12px rgba(24,24,27,.16); }
 
+.reveal-blur-word { display: inline-block; filter: blur(var(--reveal-blur, 8px)); opacity: var(--reveal-opacity, .15); will-change: filter, opacity; }
+
 .faq-slide-left, .faq-slide-right { opacity: 0; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease; will-change: transform, opacity; }
 .faq-slide-left { transform: translateX(-80px); }
 .faq-slide-right { transform: translateX(80px); transition-delay: 180ms; }
@@ -202,4 +204,5 @@ main { padding-top: 64px; }
   .reveal { opacity: 1; transform: none; }
   .word-bubble, .word-bubble.is-visible, .word-bubble.is-visible:hover { opacity: 1; transform: none; transition: none; }
   .faq-slide-left, .faq-slide-right, .faq-slide-left.is-visible, .faq-slide-right.is-visible { opacity: 1; transform: none; transition: none; }
+  .reveal-blur-word { filter: none; opacity: 1; will-change: auto; }
 }

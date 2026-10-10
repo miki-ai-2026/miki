@@ -179,10 +179,55 @@ function setupFaq() {
   });
 }
 
+function setupScrollRevealBlur() {
+  const paragraphs = [...document.querySelectorAll('[data-reveal-blur]')];
+  if (!paragraphs.length) return;
+
+  const words = paragraphs.flatMap((paragraph) => {
+    const text = paragraph.textContent.trim();
+    paragraph.replaceChildren();
+    return text.split(/\s+/).map((word, index, allWords) => {
+      const span = document.createElement('span');
+      span.className = 'reveal-blur-word';
+      span.textContent = word;
+      paragraph.append(span);
+      if (index < allWords.length - 1) paragraph.append(document.createTextNode(' '));
+      return span;
+    });
+  });
+
+  let ticking = false;
+  const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+  const update = () => {
+    const viewportHeight = window.innerHeight;
+    const revealStart = viewportHeight * 0.84;
+    const revealEnd = viewportHeight * 0.38;
+    const revealRange = revealStart - revealEnd;
+    words.forEach((word) => {
+      const progress = clamp((revealStart - word.getBoundingClientRect().top) / revealRange, 0, 1);
+      word.style.setProperty('--reveal-progress', progress.toFixed(3));
+      word.style.setProperty('--reveal-blur', `${(8 * (1 - progress)).toFixed(2)}px`);
+      word.style.setProperty('--reveal-opacity', (0.15 + (0.85 * progress)).toFixed(3));
+    });
+    ticking = false;
+  };
+  const requestUpdate = () => {
+    if (!ticking) {
+      ticking = true;
+      window.requestAnimationFrame(update);
+    }
+  };
+
+  window.addEventListener('scroll', requestUpdate, { passive: true });
+  window.addEventListener('resize', requestUpdate, { passive: true });
+  update();
+}
+
 setupHeroCanvas();
 setupShrinkingHeader();
 setupRevealMotion();
 setupFaqSlideMotion();
+setupScrollRevealBlur();
 setupLearnedPanel();
 setupEarlyAccess();
 setupFaq();
