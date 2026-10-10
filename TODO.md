@@ -25,3 +25,5 @@
 - [x] Convert the mobile viewport into a premium divided-halfspace composition: split the hero copy/media, use a two-column learned-store pair, arrange AI-team modules into responsive halfspace tiles with the care card spanning both columns, preserve stable 48px touch controls and 16px page gutters, keep FAQ copy full-width and readable, clip overflow safely, and keep hero parallax reset below 768px.
 
 - [x] Refine mobile Security, Operations, and Customer Care cards: use full-width vertical cards on mobile, scale typography with readable line-height, force stable media dimensions with contain-fit imagery and centered zoomed artwork, preserve card overflow containment, and keep a narrow-phone fallback that remains readable at 320px.
+
+- [x] Unify Security, Operations, and Customer Care card surfaces with their embedded image backgrounds: remove the separate translucent image tint and align each card/media surface to one sampled color so the artwork reads as part of the card rather than a detached panel.

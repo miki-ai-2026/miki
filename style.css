@@ -78,11 +78,11 @@ main { padding-top: 64px; }
 .mini-card img { flex: 0 0 112px; width: 112px; height: 112px; border-radius: 16px; object-fit: cover; }
 .mini-card > div { margin-left: 24px; }
 .mini-card p { margin-top: 4px; font-size: 14px; line-height: 1.5; }
-.security-card { border-color: rgba(0,0,0,.1); background: var(--ink); color: #fff; }
+.security-card { border-color: rgba(0,0,0,.1); background: rgb(25,25,26); color: #fff; }
 .security-card p { color: #a1a1aa; }
-.operations-card { border-color: rgba(234, 179, 8, .24); background: #f6efc4; color: var(--ink); }
+.operations-card { border-color: rgba(234, 179, 8, .24); background: rgb(235,229,197); color: var(--ink); }
 .operations-card p, .care-card p { color: #3f3f46; }
-.care-card { border-color: rgba(192, 132, 252, .18); background: #e9e7f5; color: var(--ink); }
+.care-card { border-color: rgba(192, 132, 252, .18); background: rgb(211,213,228); color: var(--ink); }
 .section-footnote { margin: 16px 0 0; color: var(--muted-steel); font-size: 12px; line-height: 1.4; }
 
 .learns-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); align-items: center; gap: 32px; margin-top: 48px; }
@@ -195,7 +195,7 @@ main { padding-top: 64px; }
   .personal-card, .team-stack { width: 100%; }
   .team-stack { display: grid; grid-template-columns: 1fr; gap: 12px; }
   .mini-card { min-height: 0; padding: 12px; flex-direction: column; align-items: stretch; }
-  .mini-card img { display: block; flex: 0 0 auto; width: 100%; height: 132px; padding: 0; border-radius: 12px; background: rgba(255,255,255,.2); object-fit: contain; object-position: center; transform: scale(1.28); }
+  .mini-card img { display: block; flex: 0 0 auto; width: 100%; height: 132px; padding: 0; border-radius: 12px; background: transparent; object-fit: contain; object-position: center; transform: scale(1.28); }
   .mini-card > div { min-width: 0; margin: 12px 0 0; }
   .mini-card h3 { font-size: clamp(13px, 3.6vw, 15px); line-height: 1.2; letter-spacing: -.01em; }
   .mini-card p { margin-top: 5px; font-size: clamp(11px, 2.9vw, 12px); line-height: 1.35; overflow-wrap: normal; }
