@@ -23,3 +23,5 @@
 - [x] Add a subtle scroll-triggered hero background parallax: move the existing glowing canvas layer at 0.35x scroll speed, scale it from 1 to .95 and fade it from 1 to .6 through the hero, use compositor-friendly transforms/opacity with requestAnimationFrame, and reset the effect on mobile and reduced-motion environments while preserving all existing foreground effects.
 
 - [x] Convert the mobile viewport into a premium divided-halfspace composition: split the hero copy/media, use a two-column learned-store pair, arrange AI-team modules into responsive halfspace tiles with the care card spanning both columns, preserve stable 48px touch controls and 16px page gutters, keep FAQ copy full-width and readable, clip overflow safely, and keep hero parallax reset below 768px.
+
+- [x] Refine mobile Security, Operations, and Customer Care cards: use full-width vertical cards on mobile, scale typography with readable line-height, force stable media dimensions with contain-fit imagery and centered zoomed artwork, preserve card overflow containment, and keep a narrow-phone fallback that remains readable at 320px.

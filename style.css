@@ -193,13 +193,13 @@ main { padding-top: 64px; }
   .section-intro p { font-size: 16px; }
   .team-grid { display: flex; flex-direction: column; align-items: stretch; gap: 16px; }
   .personal-card, .team-stack { width: 100%; }
-  .team-stack { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .team-stack { display: grid; grid-template-columns: 1fr; gap: 12px; }
   .mini-card { min-height: 0; padding: 12px; flex-direction: column; align-items: stretch; }
-  .mini-card img { flex-basis: auto; width: 100%; height: 92px; border-radius: 12px; }
-  .mini-card > div { margin: 12px 0 0; }
-  .mini-card h3 { font-size: 15px; }
-  .mini-card p { font-size: 12px; line-height: 1.4; }
-  .care-card { grid-column: 1 / -1; }
+  .mini-card img { display: block; flex: 0 0 auto; width: 100%; height: 132px; padding: 0; border-radius: 12px; background: rgba(255,255,255,.2); object-fit: contain; object-position: center; transform: scale(1.28); }
+  .mini-card > div { min-width: 0; margin: 12px 0 0; }
+  .mini-card h3 { font-size: clamp(13px, 3.6vw, 15px); line-height: 1.2; letter-spacing: -.01em; }
+  .mini-card p { margin-top: 5px; font-size: clamp(11px, 2.9vw, 12px); line-height: 1.35; overflow-wrap: normal; }
+  .care-card { grid-column: auto; }
   .learned-panel { padding: 16px; }
   .learned-row { min-height: 56px; font-size: 12px; }
   .closing-anchor p { font-size: 24px; }
@@ -212,6 +212,12 @@ main { padding-top: 64px; }
   .faq-trigger { font-size: 18px; }
   .footer-main-row { align-items: center; flex-direction: column; gap: 24px; }
   .footer-note { text-align: center; }
+}
+
+@media (max-width: 380px) {
+  .team-stack { grid-template-columns: 1fr; }
+  .care-card { grid-column: auto; }
+  .mini-card img { height: 112px; transform: scale(1.22); }
 }
 
 @media (prefers-reduced-motion: reduce) {
