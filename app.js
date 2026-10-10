@@ -85,6 +85,29 @@ function setupHeroCanvas() {
   requestAnimationFrame(render);
 }
 
+function setupShrinkingHeader() {
+  const header = document.querySelector('.site-header');
+  const hero = document.querySelector('.hero-section');
+  if (!header || !hero) return;
+
+  let ticking = false;
+  const update = () => {
+    const passedHero = hero.getBoundingClientRect().bottom <= header.offsetHeight + 8;
+    header.classList.toggle('is-scrolled', passedHero);
+    ticking = false;
+  };
+  const requestUpdate = () => {
+    if (!ticking) {
+      ticking = true;
+      window.requestAnimationFrame(update);
+    }
+  };
+
+  window.addEventListener('scroll', requestUpdate, { passive: true });
+  window.addEventListener('resize', requestUpdate, { passive: true });
+  update();
+}
+
 function setupRevealMotion() {
   const elements = document.querySelectorAll('.reveal');
   if (prefersReducedMotion || !('IntersectionObserver' in window)) {
@@ -137,6 +160,7 @@ function setupFaq() {
 }
 
 setupHeroCanvas();
+setupShrinkingHeader();
 setupRevealMotion();
 setupLearnedPanel();
 setupEarlyAccess();

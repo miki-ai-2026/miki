@@ -11,3 +11,5 @@
 - [x] Implement the FAQ accordion with accessible expand/collapse behavior and reference-matched styling; verified selecting a second FAQ closes the default answer and opens the selected answer in the live browser.
 - [x] Implement the reference-matched footer with correct content, layout, links, and responsive behavior.
 - [x] Deliver a frontend-only production-quality implementation with accessible semantics and polished behavior across desktop, tablet, and mobile, without login, database, or custom backend; verified with the production build, route manifest, and desktop/mobile captures.
+
+- [x] Add a shrinking sticky header effect to the existing navigation: preserve the default hero-state layout, keep the header fixed at the top with high z-index, add a passive scroll-triggered compact state after the hero, transition height/padding/logo/nav spacing/background/shadow with `all 0.3s ease`, and preserve desktop, tablet, and mobile behavior; verified in the live browser at the top and after scrolling past the hero.

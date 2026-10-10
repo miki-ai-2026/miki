@@ -27,15 +27,19 @@ img { display: block; max-width: 100%; }
 .skip-link:focus { transform: translateY(0); }
 .container { width: min(100% - 64px, var(--container)); margin-inline: auto; }
 
-.site-header { position: fixed; z-index: 50; inset: 0 0 auto; height: 64px; background: rgba(255,255,255,.8); border-bottom: 1px solid var(--whisper-border); backdrop-filter: blur(14px); }
-.nav-inner { display: flex; align-items: center; justify-content: space-between; width: min(100% - 64px, var(--container)); height: 64px; margin-inline: auto; }
-.brand-mark { display: inline-flex; align-items: center; gap: 8px; border-radius: 14px; transition: transform 180ms var(--ease-spring); }
+.site-header { position: fixed; z-index: 50; inset: 0 0 auto; height: 64px; background: rgba(255,255,255,.8); border-bottom: 1px solid var(--whisper-border); backdrop-filter: blur(14px); transition: all 0.3s ease; }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; width: min(100% - 64px, var(--container)); height: 64px; margin-inline: auto; transition: all 0.3s ease; }
+.brand-mark { display: inline-flex; align-items: center; gap: 8px; border-radius: 14px; transition: all 0.3s ease, transform 180ms var(--ease-spring); }
 .brand-mark:hover { transform: translateY(-2px); }
 .brand-mark:active { transform: scale(.98); }
-.brand-mark img { width: auto; height: 32px; object-fit: contain; mix-blend-mode: multiply; }
-.site-nav { display: flex; align-items: center; gap: 32px; }
+.brand-mark img { width: auto; height: 32px; object-fit: contain; mix-blend-mode: multiply; transition: all 0.3s ease; }
+.site-nav { display: flex; align-items: center; gap: 32px; transition: all 0.3s ease; }
 .site-nav a { color: var(--muted-steel); font-size: 16px; line-height: 1.6; text-decoration: none; transition: color 180ms var(--ease-spring); }
 .site-nav a:hover { color: var(--ink); }
+.site-header.is-scrolled { height: 52px; background: rgba(255,255,255,.9); box-shadow: 0 8px 24px rgba(24,24,27,.08); }
+.site-header.is-scrolled .nav-inner { height: 52px; }
+.site-header.is-scrolled .brand-mark img { height: 26px; }
+.site-header.is-scrolled .site-nav { gap: 24px; }
 
 main { padding-top: 64px; }
 .hero-section { position: relative; display: flex; align-items: center; min-height: calc(100vh - 64px); overflow: hidden; }
@@ -158,6 +162,7 @@ main { padding-top: 64px; }
   .container, .nav-inner { width: calc(100% - 32px); }
   .site-nav { gap: 32px; }
   .brand-mark img { height: 28px; }
+  .site-header.is-scrolled .brand-mark img { height: 24px; }
   .hero-section { min-height: auto; }
   .hero-content { padding-block: 48px; }
   .hero-grid, .team-grid, .learns-grid, .faq-layout { display: flex; flex-direction: column; align-items: stretch; }
