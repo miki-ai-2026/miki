@@ -125,6 +125,26 @@ function setupRevealMotion() {
   elements.forEach((element) => observer.observe(element));
 }
 
+function setupFaqSlideMotion() {
+  const section = document.querySelector('.faq-section');
+  const halves = section?.querySelectorAll('.faq-slide-left, .faq-slide-right');
+  if (!section || !halves?.length) return;
+
+  const reveal = () => halves.forEach((half) => half.classList.add('is-visible'));
+  if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+    reveal();
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries, instance) => {
+    if (entries.some((entry) => entry.isIntersecting)) {
+      reveal();
+      instance.disconnect();
+    }
+  }, { threshold: 0.2 });
+  observer.observe(section);
+}
+
 function setupLearnedPanel() {
   const panel = document.querySelector('.learned-panel');
   const edit = document.getElementById('edit-settings');
@@ -162,6 +182,7 @@ function setupFaq() {
 setupHeroCanvas();
 setupShrinkingHeader();
 setupRevealMotion();
+setupFaqSlideMotion();
 setupLearnedPanel();
 setupEarlyAccess();
 setupFaq();

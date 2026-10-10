@@ -16,7 +16,7 @@
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { margin: 0; min-width: 320px; background: var(--fog-canvas); color: var(--ink); font-family: 'Geist', ui-sans-serif, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0; min-width: 320px; overflow-x: clip; background: var(--fog-canvas); color: var(--ink); font-family: 'Geist', ui-sans-serif, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
 button, a, input { font: inherit; }
 a { color: inherit; }
 button { cursor: pointer; }
@@ -106,7 +106,7 @@ main { padding-top: 64px; }
 .closing-anchor { margin-top: 64px; text-align: center; }
 .closing-anchor p { margin: 0; font-size: 30px; font-weight: 600; line-height: 1.2; letter-spacing: -.03em; }
 
-.faq-section { padding-block: 112px; }
+.faq-section { padding-block: 112px; overflow-x: clip; }
 .faq-layout { display: grid; grid-template-columns: repeat(12, minmax(0,1fr)); align-items: start; gap: 64px; }
 .faq-aside { grid-column: span 5; position: sticky; top: 96px; }
 .faq-kicker { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; }
@@ -159,6 +159,11 @@ main { padding-top: 64px; }
 .word-bubble.reveal-delay-3 { transition-delay: 300ms; }
 .word-bubble.is-visible:hover { transform: translateY(-4px) scale(1.01); box-shadow: 0 18px 44px -12px rgba(24,24,27,.16); }
 
+.faq-slide-left, .faq-slide-right { opacity: 0; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease; will-change: transform, opacity; }
+.faq-slide-left { transform: translateX(-80px); }
+.faq-slide-right { transform: translateX(80px); transition-delay: 180ms; }
+.faq-slide-left.is-visible, .faq-slide-right.is-visible { opacity: 1; transform: translateX(0); }
+
 @media (max-width: 1023px) {
   .hero-grid { grid-template-columns: 1fr; gap: 48px; }
   .hero-copy, .hero-media { grid-column: auto; }
@@ -196,4 +201,5 @@ main { padding-top: 64px; }
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   .reveal { opacity: 1; transform: none; }
   .word-bubble, .word-bubble.is-visible, .word-bubble.is-visible:hover { opacity: 1; transform: none; transition: none; }
+  .faq-slide-left, .faq-slide-right, .faq-slide-left.is-visible, .faq-slide-right.is-visible { opacity: 1; transform: none; transition: none; }
 }
