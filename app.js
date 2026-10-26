@@ -11,7 +11,11 @@ function setupHeroCanvas() {
     void main() { gl_Position = vec4(a_position, 0.0, 1.0); }
   `;
   const fragmentSource = `
+    #ifdef GL_FRAGMENT_PRECISION_HIGH
+    precision highp float;
+    #else
     precision mediump float;
+    #endif
     uniform vec2 u_resolution;
     uniform float u_time;
     void main() {
@@ -61,28 +65,57 @@ function setupHeroCanvas() {
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]), gl.STATIC_DRAW);
 
+  // Layout size (clientWidth/Height) is unaffected by the parallax scale transform,
+  // and the buffer is only resized when the size actually changes.
   const resize = () => {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const rect = canvas.getBoundingClientRect();
-    canvas.width = Math.floor(rect.width * dpr);
-    canvas.height = Math.floor(rect.height * dpr);
+    const width = Math.max(1, Math.floor(canvas.clientWidth * dpr));
+    const height = Math.max(1, Math.floor(canvas.clientHeight * dpr));
+    if (canvas.width !== width || canvas.height !== height) {
+      canvas.width = width;
+      canvas.height = height;
+    }
   };
+
+  // All wave frequencies are multiples of 0.05 rad/s, so the animation repeats exactly
+  // every 2*PI/0.05 s. Wrapping keeps u_time small and the animation seamless.
+  const loopSeconds = (2 * Math.PI) / 0.05;
   const startTime = performance.now();
+  let frameId = 0;
+  let inView = true;
+
   const render = (now) => {
-    resize();
     gl.viewport(0, 0, canvas.width, canvas.height);
     gl.useProgram(program);
     gl.enableVertexAttribArray(positionAttribute);
     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
     gl.vertexAttribPointer(positionAttribute, 2, gl.FLOAT, false, 0, 0);
     gl.uniform2f(resolutionUniform, canvas.width, canvas.height);
-    gl.uniform1f(timeUniform, (now - startTime) * 0.001);
+    gl.uniform1f(timeUniform, ((now - startTime) * 0.001) % loopSeconds);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
-    requestAnimationFrame(render);
+    frameId = requestAnimationFrame(render);
+  };
+  const start = () => {
+    if (!frameId && inView && !document.hidden) frameId = requestAnimationFrame(render);
+  };
+  const stop = () => {
+    if (frameId) cancelAnimationFrame(frameId);
+    frameId = 0;
   };
 
-  window.addEventListener('resize', resize, { passive: true });
-  requestAnimationFrame(render);
+  resize();
+  if ('ResizeObserver' in window) new ResizeObserver(resize).observe(canvas);
+  else window.addEventListener('resize', resize, { passive: true });
+
+  // Do not burn battery drawing while the hero is off-screen or the tab is hidden.
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      inView ? start() : stop();
+    }).observe(canvas);
+  }
+  document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
+  start();
 }
 
 function setupShrinkingHeader() {
@@ -197,11 +230,6 @@ function setupLearnedPanel() {
   reset.addEventListener('click', () => inputs.forEach((input) => { input.checked = false; }));
 }
 
-function setupEarlyAccess() {
-  const button = document.getElementById('early-access');
-  if (button) button.addEventListener('click', () => { window.location.href = 'mailto:hello@miki.si?subject=MiKi%20early%20access'; });
-}
-
 function setupFaq() {
   const triggers = document.querySelectorAll('.faq-trigger');
   triggers.forEach((trigger) => {
@@ -261,6 +289,60 @@ function setupScrollRevealBlur() {
   update();
 }
 
+function setupDemo() {
+  const log = document.getElementById('chat-log');
+  const actions = document.getElementById('chat-actions');
+  const chips = document.querySelectorAll('.demo-moments .chip');
+  if (!log || !actions) return;
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const flows = {
+    brief: { say: ['Good morning. Here is your brief, top three items only.', '1. Aisle 4: check after the 10:00 delivery.', '2. Friday evening: I will warn you about queues 10 minutes earlier.', '3. Two open tasks from yesterday\u2019s handover.'],
+      options: { 'Got it': 'Done. I will keep your brief to three items.', 'Remind me at 10:00': 'Reminder set for 10:00. I will use WhatsApp first, then call if you do not reply.' } },
+    alert: { say: ['Unusual activity near the Aisle 4 exit camera. I have a short clip ready.', 'You decide what happens next.'],
+      options: { 'Notify security': 'Security has been told by text. You stay in the loop.', 'Call me': 'Calling you now.', 'Dismiss': 'Dismissed. I will note it so I learn what is normal here.' } },
+    handover: { say: ['End of shift. Handover for the next manager:', 'Open tasks: 2. Alerts today: 1, handled by you.'],
+      options: { 'Send handover': 'Handover sent to the next manager.', 'Add note: re-check Aisle 4 shelf': 'Added to the handover. Send it when you are ready.' } }
+  };
+  let timers = [];
+  const wait = (fn, ms) => { if (reduce) fn(); else timers.push(setTimeout(fn, ms)); };
+  const add = (text, who) => { const el = document.createElement('div'); el.className = 'msg msg-' + who; el.textContent = text; log.appendChild(el); log.scrollTop = log.scrollHeight; };
+  const play = (key) => {
+    timers.forEach(clearTimeout); timers = [];
+    log.textContent = ''; actions.textContent = '';
+    chips.forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.flow === key)));
+    const flow = flows[key];
+    flow.say.forEach((line, i) => wait(() => add(line, 'miki'), 500 + i * 900));
+    wait(() => {
+      Object.keys(flow.options).forEach((label) => {
+        const b = document.createElement('button'); b.type = 'button'; b.textContent = label;
+        b.addEventListener('click', () => { actions.textContent = ''; add(label, 'user'); wait(() => add(flow.options[label], 'miki'), 500); });
+        actions.appendChild(b);
+      });
+    }, 500 + flow.say.length * 900);
+  };
+  chips.forEach((c) => c.addEventListener('click', () => play(c.dataset.flow)));
+  play('brief');
+}
+
+function setupJoinForm() {
+  const form = document.getElementById('join-form');
+  const status = document.getElementById('join-status');
+  if (!form) return;
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+    const name = String(data.get('name') || '').trim();
+    const email = String(data.get('email') || '').trim();
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    form.elements.name.setAttribute('aria-invalid', String(!name));
+    form.elements.email.setAttribute('aria-invalid', String(!emailOk));
+    if (!name || !emailOk) { status.textContent = 'Please add your name and a valid work email.'; return; }
+    const body = ['Name: ' + name, 'Email: ' + email, 'Company: ' + (data.get('company') || ''), 'Number of stores: ' + (data.get('stores') || '')].join('\n');
+    status.textContent = 'Opening your email app. If nothing opens, write to hello@miki.si.';
+    window.location.href = 'mailto:hello@miki.si?subject=' + encodeURIComponent('MiKi early access') + '&body=' + encodeURIComponent(body);
+  });
+}
+
 setupHeroCanvas();
 setupShrinkingHeader();
 setupHeroParallax();
@@ -268,5 +350,6 @@ setupRevealMotion();
 setupFaqSlideMotion();
 setupScrollRevealBlur();
 setupLearnedPanel();
-setupEarlyAccess();
 setupFaq();
+setupDemo();
+setupJoinForm();
