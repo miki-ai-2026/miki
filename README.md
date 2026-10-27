@@ -86,9 +86,7 @@ The latest landing page has been checked at mobile, tablet, and desktop viewport
 ├── style.css                 # Design system, layout, responsive rules, motion states
 ├── app.js                    # Canvas motion and accessible interactions
 ├── public/assets/             # Supplied MiKi visual assets
-├── public/manus-routes.json   # Managed preview route manifest
-├── app.config.ts              # Project metadata
-└── reference/                # Supplied design brief and source reference
+└── public/privacy/index.html  # Placeholder privacy page (needs legal review before launch)
 ```
 
 ## Brand
