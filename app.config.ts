@@ -1,3 +1,0 @@
-export default {
-  logoUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuAQW0dqG1FUB_qafZSUdUTdrkTOn6M04a2T40yVuevZdJtvYE3oYN13v20I3GARqZz-guZ6qIx41ZeIaT0LplyzLhFxpn0fKJAlg8H_35kJrwEuO38CVyT6eM6mgJDSGh9yAaVl4U8X2z42JHMEhbw2-SrrMNNYsU3ewM6dnhC91ZHJTxVoIUK6lbpEzmLwPaDpYi7b2NAhE1YiYgmQv-RLF8MgG8m8fYGHPBwP-5xOLKHsvpTSs9LoE7kznw1vp1dzsg"
-};
