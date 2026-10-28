@@ -21,7 +21,7 @@ export async function POST(request: Request) {
 
   // Honeypot: real visitors leave this hidden field empty. Bots fill it.
   if (typeof body.website === 'string' && body.website.trim() !== '') {
-    return NextResponse.json({ ok: true })
+    return NextResponse.json({ ok: false, error: 'Spam detected.' }, { status: 400 })
   }
 
   const email = clean(body.email, 254)?.toLowerCase()

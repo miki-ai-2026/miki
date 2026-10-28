@@ -2,14 +2,12 @@ import { Suspense, type ReactNode } from 'react'
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import SignOutButton from './sign-out-button'
-import { connection } from 'next/server'
 
 // This area depends on the signed-in user, so it cannot be an instant navigation.
 export const instant = false
 
 // Reads the session cookie, so it must sit inside <Suspense> (Cache Components).
 async function Gate({ children }: { children: ReactNode }) {
-  await connection() // the session check only makes sense per request
   const supabase = await createClient()
   const { data, error } = await supabase.auth.getClaims()
   const claims = data?.claims
