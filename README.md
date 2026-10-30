@@ -1,10 +1,11 @@
 # MiKi
 
 MiKi AI is building an AI team for physical retail stores in Kenya. This repository holds the public
-website (miki.si) and the private team console. The store product itself is still in development.
+website (miki.si) and the private team console. The store product itself is in development.
 
-- Start with [`CLAUDE.md`](CLAUDE.md) and the [`docs/`](docs) folder.
-- Run it locally: see [`docs/SETUP.md`](docs/SETUP.md).
+- AI assistants and new developers: start with [`CLAUDE.md`](CLAUDE.md), then [`docs/`](docs).
+- Run it locally: [`docs/SETUP.md`](docs/SETUP.md).
+- Where files belong: [`structure.md`](structure.md).
 - Stack: Next.js 16, React 19, Supabase, Vercel.
 
 ```bash
