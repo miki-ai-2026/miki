@@ -43,4 +43,8 @@ agent must stay task-specific. See `docs/OPEN_QUESTIONS.md`.
 **D12. Business planning stays out of the repository.** Investor, partner and marketing details
 live elsewhere.
 
-**D13. Keep `legacy/` temporarily** as a reference until the React port is verified in production.
+**D13. Removed the `legacy/` Vite site** once the React port was verified. It remains in git history.
+
+**D14. One Vercel project, minimal `vercel.json`.** An invalid `rootDirectory` property in
+`vercel.json` failed every deployment on 2026-10-28. Dashboard settings stay in the dashboard, and
+a duplicate Vercel project connected to the same repo is removed.

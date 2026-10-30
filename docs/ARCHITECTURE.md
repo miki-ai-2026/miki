@@ -17,12 +17,11 @@ app/
     console/                 Auth-gated team console (leads list)
   api/
     early-access/route.ts    POST: public sign-up form -> leads table (secret key, server only)
-    health/route.ts          GET: temporary Supabase connectivity check (delete later)
 components/site/             Website components (see below)
 lib/supabase/                client.ts (browser), server.ts (server), admin.ts (secret key), proxy.ts
 proxy.ts                     Next.js 16 proxy: refreshes the Supabase session on each request
 supabase/migrations/         SQL migrations, applied in order
-legacy/                      Original Vite site. Delete once the port is verified.
+vercel.json                  Minimal Vercel config (framework: nextjs)
 docs/                        This documentation
 ```
 
@@ -69,5 +68,6 @@ See `.env.example`: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABL
 
 ## Hosting
 
-Vercel (framework: Next.js) from this repository. Supabase project `miki-dev` is in West Europe
+Vercel (framework: Next.js) from this repository, one project only. `vercel.json` stays minimal;
+root directory and similar options are dashboard settings. Supabase project `miki-dev` is in West Europe
 (London). A separate production project is planned before real data arrives.

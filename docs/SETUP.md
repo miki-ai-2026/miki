@@ -22,6 +22,15 @@ secret keys. Public sign-ups are off. Create users in Authentication -> Users, t
 in the SQL Editor (see `docs/DATABASE.md`). Apply migrations by pasting each file from
 `supabase/migrations/` into the SQL Editor, in order.
 
+## Vercel
+One project only, connected to this repository. In its settings: Framework Preset = Next.js, no
+Build or Output Directory overrides, root directory blank. Under Environment Variables add
+`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` and `SUPABASE_SECRET_KEY`
+(Production and Preview; mark the secret key as sensitive). Without them every page can fail,
+because `proxy.ts` runs on each request. Variable changes apply only to new deployments, so redeploy
+afterwards. Read a failed deployment's log in the Vercel dashboard, or with
+`npx vercel inspect <deployment-id> --logs`.
+
 ## Daily workflow
 1. `git switch -c feature/short-description` from the latest branch.
 2. Make a small change, run `pnpm build`, check it in the browser.
