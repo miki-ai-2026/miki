@@ -3,15 +3,17 @@
 Status as of 2026-10-28.
 
 ## Phase 1: foundation
-- [x] Next.js app scaffolded; old Vite site moved to `legacy/`
+- [x] Next.js app scaffolded; old Vite site removed
 - [x] Supabase project `miki-dev`; clients wired; health check passes
 - [x] `profiles` and `leads` migration applied; owner set
 - [x] Sign-in page and auth-gated console with leads list
 - [x] `/api/early-access` route (tested with duplicate emails)
 - [x] Landing page ported to React components; privacy page; documentation
-- [ ] Vercel project switched to Next.js, with Supabase environment variables set
-- [ ] Merge to `main`; production site (`miki-xi.vercel.app`) serves the new app
-- [ ] Delete `legacy/` and `/api/health`
+- [x] Merged to `main` (PR #7)
+- [x] `vercel.json` fixed (invalid `rootDirectory` removed, `framework: nextjs`)
+- [x] Deleted `legacy/` and `/api/health`
+- [ ] Vercel: one project only, Framework Preset Next.js, Supabase variables set, production deploy green
+- [ ] Production site (`miki-xi.vercel.app`) serves the new app
 
 ## Phase 2: make the early-access list real
 - [ ] Rate limiting or bot check on the form

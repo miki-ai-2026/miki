@@ -13,7 +13,8 @@ There is no finished product, demo or pilot. Never describe it as live.
 This repository currently contains:
 1. The public website (home page, privacy page, early-access form).
 2. A private team console (sign-in, early-access leads list) backed by Supabase.
-3. A `legacy/` folder with the original Vite landing page, kept only until the port is verified.
+
+The original Vite landing page has been removed; it remains in git history.
 
 ## Stack
 
@@ -52,6 +53,10 @@ Environment variable names are in `.env.example`. Values live in `.env.local` (g
 8. **Agents propose, humans approve.** Anything sent outside (posts, messages, emails) needs a
    human approval step. No auto-replies on social media.
 9. **Tone.** Plain, concrete, no hype. MiKi supports teams; it does not watch them.
+10. **Vercel config.** `vercel.json` may contain only valid properties (currently `$schema` and
+    `framework: nextjs`). Settings such as the root directory belong in the Vercel dashboard, not
+    in `vercel.json`: an invalid property fails every deployment. Keep exactly one Vercel project
+    connected to this repository.
 
 ## Working with the owner
 
