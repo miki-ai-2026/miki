@@ -1,32 +1,24 @@
 # Partner handoff
 
-How to onboard a new developer and their AI assistant.
+How to onboard a developer and their AI assistant. Mark joined on 2026-10-28.
 
 ## Checklist for the owner
-1. Invite them to the GitHub repo (write access to branches, not admin) and require pull requests
-   into `main`.
-2. Invite them to the Supabase organisation. Prefer a separate user for them in the console.
-3. Invite them to the Vercel project.
-4. Share environment values through a password manager, never through chat or email.
-5. Send them: this repository, `CLAUDE.md`, `docs/`, and the prompt below.
 
-## Prompt for the partner's AI assistant
+1. GitHub: invite with write access, not admin. Agree that nobody pushes to `main`.
+2. Vercel: invite to the project. Supabase: invite to the organisation only if needed.
+3. Share environment values through a password manager, never chat or email. Prefer that Mark runs
+   his own Supabase project (see `docs/SETUP.md`) so the secret key stays with the owner.
+4. Send: the repository, `docs/partner/WELCOME_MARK.md`, and one of the prompts below.
+5. Agree who owns which area (table in `WELCOME_MARK.md`) to avoid collisions.
 
-Paste this at the start of their session, together with `CLAUDE.md` and the `docs/` folder.
+## Giving an AI assistant the context
 
-> You are a senior software engineer helping me work on the MiKi platform. First read `CLAUDE.md`
-> and every file in `docs/` completely, then summarise in five lines what the project is, the
-> current status and the rules you must follow. Do not change anything until I confirm the summary.
->
-> Working rules: follow `CLAUDE.md` exactly. Work on a feature branch and never push to `main`.
-> Give small, verifiable steps and run `pnpm build` before suggesting a commit. Never invent
-> facts about the product, third-party APIs or pricing: if you are unsure, say so and tell me what
-> to research, with sources. Never ask me to paste secrets. Any new table needs a migration, row
-> level security, explicit grants and an update to `docs/DATABASE.md`. Update `docs/ROADMAP.md`
-> and `docs/DECISIONS.md` when you finish meaningful work.
->
-> My task today is: [describe the task].
+- **Claude Code in the repo:** use `docs/partner/PROMPT_claude-code.md`. It reads `CLAUDE.md` itself.
+- **Claude chat (claude.ai):** run `bash scripts/build-context-pack.sh`, attach the generated
+  `MIKI_CONTEXT_PACK.md` (git-ignored), and paste `docs/partner/PROMPT_claude-chat.md`.
+- Regenerate the pack whenever docs change, so the assistant never works from stale context.
 
 ## Definition of done
-Builds without errors, behaves correctly in the browser, no secrets in git, documentation updated,
-pull request reviewed.
+
+Builds without errors, behaves correctly in the browser, no secrets in git, docs and changelog
+updated, pull request reviewed by the other builder.

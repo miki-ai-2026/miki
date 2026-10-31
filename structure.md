@@ -18,7 +18,8 @@ components/site/             Website components (Header, HeroCanvas, DemoChat, F
 lib/supabase/                client.ts (browser), server.ts, admin.ts (secret key), proxy.ts
 proxy.ts                     Refreshes the Supabase session on every request
 supabase/migrations/         SQL migrations, applied in order
-docs/                        Documentation (see CLAUDE.md for the map)
+scripts/                     Helper scripts (build-context-pack.sh)
+docs/                        Documentation; docs/partner/ holds onboarding prompts
 public/assets/               Images used by the website
 ```
 
@@ -30,6 +31,6 @@ Top-level files: `CLAUDE.md` and `AGENTS.md` (instructions for AI assistants), `
 - Website UI goes in `components/site/` and `app/(site)/`. Platform UI goes under `app/(platform)/`.
 - Do not mix the two areas' CSS. Link between them with plain `<a>` tags.
 - Database changes: a new file in `supabase/migrations/` plus an update to `docs/DATABASE.md`.
-- Server-only code that uses the secret key lives in `lib/supabase/admin.ts` and API routes.
+- Code that uses the secret key lives in `lib/supabase/admin.ts` and API routes only.
 - Never commit `.env.local` or any key.
-- Update `docs/ROADMAP.md` and `docs/DECISIONS.md` after meaningful work.
+- After meaningful work, update `docs/CHANGELOG.md` (and ROADMAP or DECISIONS when relevant).

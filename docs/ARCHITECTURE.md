@@ -2,72 +2,68 @@
 
 ## Layout
 
-```text
-app/
-  layout.tsx                 Root layout: html, body, Geist font, metadata
-  globals.css                Tailwind import (loaded only by the platform area)
-  (site)/                    Public website. Plain CSS (site.css), no Tailwind.
-    layout.tsx               Imports site.css; wraps content in <div id="top">
-    page.tsx                 Home page, composed from components/site/*
-    privacy/page.tsx         Draft privacy page (needs legal review)
-    site.css                 Design system for the website
-  (platform)/                Private area. Tailwind.
-    layout.tsx               Imports globals.css
-    login/                   Email + password sign-in (client form)
-    console/                 Auth-gated team console (leads list)
-  api/
-    early-access/route.ts    POST: public sign-up form -> leads table (secret key, server only)
-components/site/             Website components (see below)
-lib/supabase/                client.ts (browser), server.ts (server), admin.ts (secret key), proxy.ts
-proxy.ts                     Next.js 16 proxy: refreshes the Supabase session on each request
-supabase/migrations/         SQL migrations, applied in order
-vercel.json                  Minimal Vercel config (framework: nextjs)
-docs/                        This documentation
-```
+See `structure.md` for the file tree. In short:
 
-Route groups `(site)` and `(platform)` do not appear in URLs. They exist so each area loads only its
-own CSS. Cross-area links are plain `<a>` tags so the page reloads and styles never mix.
+- `app/(site)`: public website, plain CSS (`site.css`).
+- `app/(platform)`: sign-in and console, Tailwind (`globals.css`).
+- `app/api/early-access`: the only public write path.
+- `lib/supabase`: four Supabase helpers (see below).
+- `proxy.ts`: refreshes the Supabase session cookie on every request.
 
-## Website components (`components/site/`)
+Route groups do not appear in URLs. They exist so each area loads only its own CSS. Links between
+areas are plain `<a>` tags, so the page reloads and stylesheets never mix.
 
-Server components: `Footer`, `SocialLinks`. Client components (they need state or the browser):
-`Header` (shrinks after the hero), `HeroCanvas` (WebGL wave and parallax), `Reveal` (fade-in on
-scroll), `BlurText` (words sharpen on scroll), `LearnedPanel`, `DemoChat` (scripted preview),
-`Faq`, `JoinForm`. `SocialLinks` renders only entries that have a URL.
+## Routes
+
+| Path | Area | Notes |
+|------|------|-------|
+| `/` | site | Home page, static |
+| `/privacy` | site | Draft privacy page (noindex) |
+| `/login` | platform | Email + password sign-in, static shell |
+| `/console` | platform | Auth-gated leads list, streamed per request |
+| `/api/early-access` | api | POST only |
+
+## Supabase helpers (`lib/supabase`)
+
+- `client.ts`: browser client (publishable key). Used by the sign-in form and sign-out button.
+- `server.ts`: server client reading the session cookie. Used by the console. RLS applies.
+- `admin.ts`: server-only client with the secret key. Bypasses RLS. Used by `/api/early-access`.
+- `proxy.ts`: `updateSession`, called from the root `proxy.ts`.
 
 ## Data flows
 
-**Early-access sign-up:** visitor fills `JoinForm` -> `POST /api/early-access` -> route validates,
-checks a honeypot field, then inserts into `public.leads` with the secret key. A duplicate email
-(unique index, Postgres error 23505) is treated as success so nothing leaks.
+**Early-access sign-up.** `JoinForm` validates, then `POST /api/early-access`. The route parses
+JSON, drops submissions where the hidden `website` field is filled (honeypot), validates the email,
+and inserts into `public.leads` with the secret key. A duplicate email (unique index, Postgres error
+23505) returns success so nothing leaks. Any other database error returns a generic 500.
 
-**Team console:** the browser signs in with Supabase Auth (email + password). The proxy refreshes
-the session cookie. `console/layout.tsx` verifies the session with `getClaims()` inside
-`<Suspense>` and redirects to `/login` otherwise. Queries use the server client, so row level
-security applies as the signed-in user.
+**Team console.** The browser signs in with Supabase Auth. The proxy keeps the cookie fresh.
+`console/layout.tsx` verifies the session with `getClaims()` inside `<Suspense>` and redirects to
+`/login` otherwise. Queries run as the signed-in user, so row level security decides what is
+visible.
 
 ## Security model
 
-- Row level security is on for every table. Anonymous visitors have no policies, so no access.
-- Team members (a row in `profiles`) can read and update leads. Only owners can delete.
+- RLS is on for every table. Anonymous visitors have no policies and therefore no access.
+- Team members (a row in `profiles`) read and update leads. Only owners delete.
 - The secret key bypasses RLS and exists only in server code and server environment variables.
-- The layout redirect is a convenience. The database policies are the real protection.
-- Sign-ups are disabled in Supabase Auth; users are created by an admin in the dashboard.
+- The layout redirect is a convenience; the database policies are the real protection.
+- Public sign-ups are disabled in Supabase Auth. Admins create users in the dashboard.
+- Still missing: rate limiting or a bot check on the public form.
 
-## Cache Components notes
+## Cache Components
 
-Cache Components is enabled (scaffold default). Consequences already handled:
-- The console layout wraps its session check in `<Suspense>`.
-- The console layout exports `instant = false` to skip instant-navigation validation.
-- Static pages (`/`, `/privacy`, `/login`) contain no per-request data.
+Enabled by the scaffold. Already handled: the console wraps its session check in `<Suspense>` and
+exports `instant = false`; static pages contain no per-request data. Next.js docs for this version
+are in `node_modules/next/dist/docs/`.
 
 ## Environment variables
 
-See `.env.example`: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`,
-`SUPABASE_SECRET_KEY`. They must also be set in the Vercel project (Production and Preview).
+`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_SECRET_KEY`.
+Set locally in `.env.local` and in Vercel (Production and Preview). The proxy runs on every request,
+so missing variables can break every page.
 
 ## Hosting
 
-Vercel (framework: Next.js) from this repository, one project only. `vercel.json` stays minimal;
-root directory and similar options are dashboard settings. Supabase project `miki-dev` is in West Europe
-(London). A separate production project is planned before real data arrives.
+Vercel, framework Next.js, one project connected to this repository. `vercel.json` is minimal.
+Supabase project `miki-dev` runs in West Europe (London); a separate production project is planned.
