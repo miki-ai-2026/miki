@@ -52,3 +52,13 @@ duplicate Vercel project connected to the same repository is removed.
 **D15. Two builders, one branch rule.** Mark joined on 2026-10-28. Nobody pushes to `main`; every
 change is a branch and a pull request. Each builder may use their own Supabase project so the shared
 secret key is not passed around.
+
+**D16. Backend in stages: a Go core API and a Python agent service.** The frontend stays Next.js and
+the database stays Supabase. New backend work goes in `services/api` (Go) and `services/agents`
+(Python); the working Next.js and Supabase code is not rewritten. Go takes public intake, webhooks,
+notification delivery and later the camera gateway; Python takes AI agents, which only draft and
+never send without human approval. Rules: every endpoint except explicitly public ones verifies the
+caller's Supabase access token against the project's published signing keys; a service that uses the
+secret key or a database password bypasses row level security, so it must authorise in code and test
+it; database changes live only in `supabase/migrations/`; services talk to the frontend over HTTP and
+JSON, with an OpenAPI file per service. Hosting is undecided (a later decision).
