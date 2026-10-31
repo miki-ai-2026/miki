@@ -67,3 +67,12 @@ so missing variables can break every page.
 
 Vercel, framework Next.js, one project connected to this repository. `vercel.json` is minimal.
 Supabase project `miki-dev` runs in West Europe (London); a separate production project is planned.
+
+## Backend services (planned, built in stages)
+
+- `services/api`: Go. Public intake with rate limiting, webhooks, notification delivery.
+- `services/agents`: Python (FastAPI). Agents that draft; humans approve anything external.
+- Both verify the caller's Supabase access token (public keys at
+  `<project-url>/auth/v1/.well-known/jwks.json` when the project uses asymmetric signing keys;
+  otherwise call the Auth server). Neither is trusted by default.
+- The browser never receives a service secret.

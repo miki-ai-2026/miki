@@ -65,6 +65,7 @@ Environment variable names are in `.env.example`. Values live in `.env.local` (g
 9. **Agents propose, humans approve.** Anything sent outside (posts, messages, emails) needs a
    human approval step. No auto-replies on social media.
 10. **Tone.** Plain and concrete, no hype. MiKi supports teams; it does not watch them.
+11. **Services verify the caller.** Every service endpoint except an explicitly public one checks the user's Supabase token. Services never log or return secrets.
 
 ## Working with the builders
 

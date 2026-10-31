@@ -2,6 +2,10 @@
 
 Newest first. One short entry per meaningful change: date, what, and why if not obvious.
 
+## 2026-10-31
+
+- Planned Go and Python backend services (D16).
+
 ## 2026-10-30
 
 - Rewrote all documentation to match the code; added this changelog and `docs/partner/`.
